@@ -1,8 +1,8 @@
 require(["esri/map","esri/layers/ArcGISTiledMapServiceLayer", "dojo/dom","dojo/on","dojo/dom-class","dojo/domReady!"], function(Map,ArcGISTiledMapServiceLayer,dom,on,domClass) {
         var  map1 = new Map("map1", {
           basemap: "topo",
-          center: [-122.45,37.75], // long, lat
-          zoom: 8,
+         center: [100.69828872684525,33.24237112174851], // long, lat
+          zoom: 4,
           sliderStyle: "small"
         });
    var map1toplayer=new ArcGISTiledMapServiceLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer',{id:'toplayer'});//渲染之后的div的 id为 map_toplayer 即是 map div的 id+加下划线+图层layer
@@ -81,8 +81,8 @@ function getLayerTransform(layer) {
 ///
 var  map2 = new Map("map2", {
           basemap: "topo",
-          center: [-122.45,37.75], // long, lat
-          zoom: 8,
+          center: [100.69828872684525,33.24237112174851], // long, lat
+          zoom: 4,
           sliderStyle: "small"
         });
 var map2toplayer=new ArcGISTiledMapServiceLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer',{id:'toplayer'});//渲染之后的div的 id为 map_toplayer 即是 map div的 id+加下划线+图层layer
