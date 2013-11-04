@@ -1,12 +1,12 @@
+
 require(["esri/map","esri/layers/ArcGISTiledMapServiceLayer", "dojo/dom","dojo/on","dojo/dom-class","dojo/domReady!"], function(Map,ArcGISTiledMapServiceLayer,dom,on,domClass) {
-        var  map1 = new Map("map1", {
+       map1 = new Map("map1", {
           basemap: "topo",
-         center: [100.69828872684525,33.24237112174851], // long, lat
+          center: [100.69828872684525,33.24237112174851], // long, lat
           zoom: 4,
           sliderStyle: "small"
         });
    var map1toplayer=new ArcGISTiledMapServiceLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer',{id:'toplayer'});//渲染之后的div的 id为 map_toplayer 即是 map div的 id+加下划线+图层layer
-
    var  map1toplayerid=map1.id+'_toplayer';
    var map1toplayerdiv=null;
    map1.addLayer(map1toplayer);
@@ -98,6 +98,9 @@ var ishorizontalswipeanim=false;
  on(dom.byId('horizontalswipeanim'),"click",function(){
       ishorizontalswipeanim=!ishorizontalswipeanim;
    });
+
+
+ var  ismap2showtoplayer=false
 function startanima(layerid,show){
   map2toplayerdiv=map2toplayerdiv?map2toplayerdiv:document.getElementById(layerid);
   var mapheightpx=map2toplayerdiv.style.height;
@@ -118,6 +121,7 @@ function startanima(layerid,show){
           var clipbottom1=ishorizontalswipeanim?cliptop:clipbottom
           map2toplayerdiv.style.clip='rect('+cliptop+','+clipleft1+','+clipbottom1+','+clipleft+')';
            setTimeout(function(){
+            ismap2showtoplayer=true;
           map2toplayerdiv.style['-webkit-transition']= 'all 2s ease-in';
           map2toplayerdiv.style['-moz-transition']= 'all 2s ease-in' ;
           map2toplayerdiv.style['transition']= 'all 2s ease-in'  ;  
@@ -128,6 +132,7 @@ function startanima(layerid,show){
 
           map2toplayerdiv.style.clip='rect('+cliptop+','+clipright+','+clipbottom+','+clipleft+')';
        setTimeout(function(){
+        ismap2showtoplayer=false;
           clipbottom=ishorizontalswipeanim?cliptop:clipbottom;
           clipright=isverticalswipeanim?clipleft:clipright;
           map2toplayerdiv.style['-webkit-transition']= 'all 2s ease-in';
@@ -145,6 +150,12 @@ on(dom.byId('showbt'),'click',function(){
 on(dom.byId('hidebt'),'click',function(){
   startanima(map12toplayerid,true);
 })
-
+on(map2,'mouse-drag-start',function(){
+          map2toplayerdiv.style['-webkit-transition']= 'inherit';
+          map2toplayerdiv.style['-moz-transition']= 'inherit' ;
+          map2toplayerdiv.style['transition']= 'inherit'  ;  
+          map2toplayerdiv.style.clip=ismap2showtoplayer?'inherit':'rect(0px,0px,0px,0px)'
+})
 
 });
+
